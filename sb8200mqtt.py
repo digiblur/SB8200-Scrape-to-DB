@@ -7,8 +7,11 @@ import paho.mqtt.client as mqtt
 import paho.mqtt.publish as publish
 import time
 
-# Change Broker Below
-Broker = "192.168.1.XX"
+# Change User/Pass/Broker IP Below
+MQBroker = "192.168.1.x"
+MQPort = 1883
+MQUser = "MYUSERNAME"
+MQPass = "MYPASSWORD"
 url = "http://192.168.100.1/cmconnectionstatus.html"
 url2 = "http://192.168.100.1/cmswinfo.html"
 table_results = []
@@ -55,7 +58,9 @@ def main():
     down_uncor_tot=0
     numcorchan_d=0
     numuncorchan_d=0
-    if dopublish : mqttc.connect(Broker, 1883)
+    if dopublish : 
+       mqttc.username_pw_set(MQUser, MQPass)
+       mqttc.connect(MQBroker, MQPort)
 
     for row in rows:
         table_data = row.find_all('td')
